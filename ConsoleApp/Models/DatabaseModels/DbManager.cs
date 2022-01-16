@@ -2,9 +2,6 @@
 using ConsoleApp.Interfaces.CustomerInterfaces;
 using ConsoleApp.Interfaces.DatabaseInterfaces;
 using ConsoleApp.Interfaces.ServiceInterfaces;
-using ConsoleApp.Models.AnimalModels;
-using ConsoleApp.Models.CustomerModels;
-using ConsoleApp.Models.ServiceModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,18 +15,6 @@ namespace ConsoleApp.Models.DatabaseModels
         private readonly List<ICustomer> _customers = new();
         private readonly List<IAnimal> _animals = new();
         private readonly List<IService> _services = new();
-
-        // Load in dummy data
-        public DbManager()
-        {
-            ICustomer customer = new Customer { FirstName = "Lovisa", LastName = "Montelius" };
-            IAnimal animal = new Animal { Name = "Molly", Owner = customer };
-
-            _customers.Add(customer);
-            _animals.Add(animal);
-            _services.Add(new NailTrimming());
-            _services.Add(new Wash());
-        }
 
         #region GET METHODS
         public List<ICustomer> GetCustomers()

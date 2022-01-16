@@ -12,9 +12,9 @@ namespace ConsoleApp.Models.MenuModels
     {
         private readonly IDataIO _dataIO;
         private readonly IMenu _menu;
-        private Func<string, Action, IMenuItem> _menuItemFactory;
+        private readonly MenuItem.Factory _menuItemFactory;
 
-        public MenuManager(IDataIO dataIO, IMenu menu, Func<string, Action, IMenuItem> menuItemFactory)
+        public MenuManager(IDataIO dataIO, IMenu menu, MenuItem.Factory menuItemFactory)
         {
             _dataIO = dataIO;
             _menu = menu;

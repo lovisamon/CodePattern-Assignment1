@@ -9,8 +9,15 @@ namespace ConsoleApp.Models.CustomerModels
 {
     class Customer : ICustomer
     {
+        public delegate Customer Factory(string firstName, string lastName);
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string DisplayName => $"{FirstName} {LastName}";
+        
+        public Customer(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
     }
 }

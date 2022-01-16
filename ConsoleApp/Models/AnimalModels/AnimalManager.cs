@@ -15,21 +15,18 @@ namespace ConsoleApp.Models.AnimalModels
     {
         private readonly IDataIO _dataIO;
         private readonly IDbManager _dbManager;
+        private readonly Animal.Factory _animalFactory;   
 
-        public AnimalManager(IDataIO dataIO, IDbManager dbManager)
+        public AnimalManager(IDataIO dataIO, IDbManager dbManager, Animal.Factory animalFactory)
         {
             _dataIO = dataIO;
             _dbManager = dbManager;
+            _animalFactory = animalFactory;
         }
 
         public IAnimal CreateAnimal(string name, ICustomer owner)
         {
-            IAnimal animal = new Animal
-            {
-                Name = name,
-                Owner = owner
-            };
-            return animal;
+            return _animalFactory(name, owner);
         }
         public void RegisterAnimal()
         {

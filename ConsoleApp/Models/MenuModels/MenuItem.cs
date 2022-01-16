@@ -9,6 +9,7 @@ namespace ConsoleApp.Models.MenuModels
 {
     class MenuItem : IMenuItem
     {
+        public delegate MenuItem Factory(string name, Action action);
         public string Name { get; set; }
         public Action Action { get; set; }
 

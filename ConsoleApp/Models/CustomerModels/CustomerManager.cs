@@ -13,21 +13,18 @@ namespace ConsoleApp.Models.CustomerModels
     {
         private readonly IDataIO _dataIO;
         private readonly IDbManager _dbManager;
+        private readonly Customer.Factory _customerFactory;
 
-        public CustomerManager(IDataIO dataIO, IDbManager dbManager)
+        public CustomerManager(IDataIO dataIO, IDbManager dbManager, Customer.Factory customerFactory)
         {
             _dataIO = dataIO;
             _dbManager = dbManager;
+            _customerFactory = customerFactory;
         }
 
         public ICustomer CreateCustomer(string firstName, string lastName)
         {
-            ICustomer customer = new Customer
-            {
-                FirstName = firstName,
-                LastName = lastName
-            };
-            return customer;
+            return _customerFactory(firstName, lastName);
         }
 
         public void RegisterCustomer()
