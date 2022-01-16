@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp.Models.ServiceModels
 {
-    class NailTrimming : IService
+    internal class Service : IService
     {
-        public string Name => "Nail Trimming";
-        public decimal Cost => 150;
+        public delegate Service Factory(string name, decimal cost);
+        public string Name { get; set; }
+        public decimal Cost { get; set; }
+
+        public Service(string name, decimal cost)
+        {
+            Name = name;
+            Cost = cost;
+        }
 
         public string GetName()
         {

@@ -28,7 +28,7 @@ namespace ConsoleApp
             builder.RegisterType<Application>().As<IApplication>();
 
             // Setup Mockup Database
-            builder.RegisterInstance(new DbManager()).As<IDbManager>();
+            builder.RegisterType<DbManager>().As<IDbManager>().SingleInstance();
 
             // Register one by one
             builder.RegisterType<DataIO>().As<IDataIO>();
@@ -36,7 +36,8 @@ namespace ConsoleApp
                 .Where(n =>
                 n.Namespace.Contains("Menu") ||
                 n.Namespace.Contains("Customer") ||
-                n.Namespace.Contains("Animal")
+                n.Namespace.Contains("Animal") ||
+                n.Namespace.Contains("Service")
                 )
                 .As(n => n.GetInterfaces()
                 .FirstOrDefault(x => x.Name == "I" + n.Name))
@@ -48,7 +49,8 @@ namespace ConsoleApp
                 .Where(n =>
                 n.Namespace.Contains("Menu") ||
                 n.Namespace.Contains("Customer") ||
-                n.Namespace.Contains("Animal")
+                n.Namespace.Contains("Animal") ||
+                n.Namespace.Contains("Service")
                 );
 
             return builder.Build();

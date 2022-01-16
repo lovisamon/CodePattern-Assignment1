@@ -2,6 +2,9 @@
 using ConsoleApp.Interfaces.CustomerInterfaces;
 using ConsoleApp.Interfaces.DatabaseInterfaces;
 using ConsoleApp.Interfaces.ServiceInterfaces;
+using ConsoleApp.Models.AnimalModels;
+using ConsoleApp.Models.CustomerModels;
+using ConsoleApp.Models.ServiceModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +15,33 @@ namespace ConsoleApp.Models.DatabaseModels
 {
     class DbManager : IDbManager
     {
+        private readonly Customer.Factory _customerFactory;
+        private readonly Animal.Factory _animalFactory;
+        private readonly Service.Factory _serviceFactory;
         private readonly List<ICustomer> _customers = new();
         private readonly List<IAnimal> _animals = new();
         private readonly List<IService> _services = new();
+
+        /* Load Dummy Data
+         Realistically, data already exists in the database.
+         However, since this is a mock database we populate it here.
+        */
+        public DbManager(Customer.Factory customerFactory, Animal.Factory animalFactory, Service.Factory serviceFactory)
+        {
+            _customerFactory = customerFactory;
+            _animalFactory = animalFactory;
+            _serviceFactory = serviceFactory;
+
+            ICustomer customer = _customerFactory("Lovisa", "Montelius");
+            IAnimal animal = _animalFactory("Molly", customer);
+            AddCustomer(customer);
+            AddAnimal(animal);
+
+            IService nailtrimming = _serviceFactory("Nail Trimming", 150);
+            IService wash = _serviceFactory("Wash", 200);
+            _services.Add(nailtrimming);
+            _services.Add(wash);
+        }
 
         #region GET METHODS
         public List<ICustomer> GetCustomers()
