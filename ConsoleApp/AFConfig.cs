@@ -44,7 +44,6 @@ namespace ConsoleApp
                 .AsImplementedInterfaces();
 
             // Register Delegate Factories
-            builder.RegisterType<DataIO>().As<IDataIO>();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(n =>
                 n.Namespace.Contains("Menu") ||
